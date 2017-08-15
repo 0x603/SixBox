@@ -1,0 +1,4 @@
+-- 数据库
+DROP DATABASE IF EXISTS `SixBox`;
+CREATE DATABASE `SixBox`;
+USE `SixBox`;

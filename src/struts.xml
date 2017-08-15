@@ -5,4 +5,20 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+    <!-- 指定资源编码类型 -->
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <!-- 开发者模式，输出详细错误信息 -->
+    <constant name="struts.devMode" value="true"/>
+    <!-- 指定每次配置文件更改后，自动重新加载 -->
+    <constant name="struts.configuration.xml.reload" value="true"/>
+    <!-- 不拦截静态文件 -->
+    <constant name="struts.action.excludePattern" value="/static/.*?"/>
+    <!-- 浏览器不缓存静态内容，以便查看更改效果 -->
+    <constant name="struts.serve.static.browserCache" value="false"/>
+
+    <!-- 默认配置 -->
+    <package name="default" namespace="/" extends="struts-default"/>
+
+    <!-- 引入其他子配置 -->
+
 </struts>
