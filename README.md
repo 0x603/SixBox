@@ -10,3 +10,4 @@ A tiny net-disk.
 |mysql-connector-java |  5.1.42|
 |spring-web           |  4.3.10|
 |struts2-spring-plugin|2.3.20.1|
+|servlet-api          | 3.0-a-1|
