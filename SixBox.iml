@@ -4,7 +4,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="sessionFactory" value="dataSource" />
+          <unit-entry name="sessionFactory" value="4ccbc7a5-5d90-437b-ac19-f8184b22fdcb" />
         </datasource-map>
         <naming-strategy-map />
       </configuration>
@@ -23,6 +23,7 @@
           <fileset id="s2fileset" name="Default File Set " removed="false">
             <file>file://$MODULE_DIR$/src/struts.xml</file>
             <file>jar://$MODULE_DIR$/lib/struts2-core.jar!/struts-default.xml</file>
+            <file>file://$MODULE_DIR$/src/org/sos/sixbox/user/action/struts-user.xml</file>
           </fileset>
           <propertiesKeys disabled="false" />
         </configuration>

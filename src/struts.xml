@@ -20,5 +20,5 @@
     <package name="default" namespace="/" extends="struts-default"/>
 
     <!-- 引入其他子配置 -->
-
+    <include file="org/sos/sixbox/user/action/struts-user.xml"/>
 </struts>
