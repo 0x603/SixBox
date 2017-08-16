@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="org.springframework:spring-web:4.3.10.RELEASE" type="repository">
+    <properties maven-id="org.springframework:spring-web:4.3.10.RELEASE" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/spring-web-4.3.10.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
