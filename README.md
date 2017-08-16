@@ -11,3 +11,6 @@ A tiny net-disk.
 |spring-web           |  4.3.10|
 |struts2-spring-plugin|2.3.20.1|
 |servlet-api          | 3.0-a-1|
+
+## Docs
+* [开发环境配置](docs/README.md)
