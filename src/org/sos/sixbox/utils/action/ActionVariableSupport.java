@@ -1,4 +1,4 @@
-package org.sos.sisbox.utils.action;
+package org.sos.sixbox.utils.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.ServletRequestAware;

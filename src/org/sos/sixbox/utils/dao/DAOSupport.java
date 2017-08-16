@@ -1,4 +1,4 @@
-package org.sos.sisbox.utils.dao;
+package org.sos.sixbox.utils.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

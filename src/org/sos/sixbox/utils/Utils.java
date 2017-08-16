@@ -1,4 +1,4 @@
-package org.sos.sisbox.utils;
+package org.sos.sixbox.utils;
 
 import java.sql.Timestamp;
 
