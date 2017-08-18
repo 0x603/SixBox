@@ -43,4 +43,21 @@ public interface UserDAO {
      * @return 所有用户实体
      */
     UserEntity[] getAllUserEntities();
+
+    /**
+     * 检查用户名和密码是否匹配
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return 匹配结果
+     */
+    boolean checkUsernameAndPassword(String username, String password);
+
+    /**
+     * 更新用户登录记录
+     *
+     * @param username 用户名
+     * @param ip       登录IP
+     */
+    void updateLastLogin(String username, String ip);
 }

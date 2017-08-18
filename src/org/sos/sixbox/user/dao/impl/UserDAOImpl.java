@@ -8,6 +8,8 @@ import org.sos.sixbox.utils.dao.DAOSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
+
 /**
  * Created by Lodour on 2017/8/16 11:23.
  */
@@ -78,5 +80,42 @@ public class UserDAOImpl extends DAOSupport implements UserDAO {
         return (UserEntity[]) getSession()
                 .createQuery("from UserEntity")
                 .getResultList().toArray();
+    }
+
+    /**
+     * 检查用户名和密码是否匹配
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return 匹配结果
+     */
+    @Override
+    public boolean checkUsernameAndPassword(String username, String password) {
+        try {
+            getSession()
+                    .createQuery("from UserEntity u where u.username = :username and u.password = :password")
+                    .setParameter("username", username)
+                    .setParameter("password", password)
+                    .getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
+
+    /**
+     * 更新用户登录记录
+     *
+     * @param username 用户名
+     * @param ip       登录IP
+     */
+    @Override
+    public void updateLastLogin(String username, String ip) {
+        getSession()
+                .createQuery("update UserEntity u set u.lastLoginTime = :time, u.lastLoginIp = :ip where u.username = :username")
+                .setParameter("time", Utils.getCurrentTimestamp())
+                .setParameter("ip", ip)
+                .setParameter("username", username)
+                .executeUpdate();
     }
 }

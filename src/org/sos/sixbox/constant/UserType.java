@@ -10,4 +10,8 @@ public final class UserType {
     public final static int ADMIN = 3;
 
     public final static String[] CAPTION = new String[]{"禁用", "用户", "管理员"};
+
+    public static boolean isValidUserType(int userType) {
+        return BLOCKED <= userType && userType <= ADMIN;
+    }
 }
