@@ -89,4 +89,15 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserEntity userEntity) {
         userDAO.update(userEntity);
     }
+
+    /**
+     * 根据id获取用户实体
+     *
+     * @param id 用户id
+     * @return 用户实体
+     */
+    @Override
+    public UserEntity getById(int id) {
+        return userDAO.getById(id);
+    }
 }

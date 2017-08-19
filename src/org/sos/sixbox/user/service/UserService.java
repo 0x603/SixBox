@@ -47,4 +47,12 @@ public interface UserService {
      * @param userEntity 用户实体
      */
     void updateUser(UserEntity userEntity);
+
+    /**
+     * 根据id获取用户实体
+     *
+     * @param id 用户id
+     * @return 用户实体
+     */
+    UserEntity getById(int id);
 }
