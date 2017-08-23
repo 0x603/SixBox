@@ -34,14 +34,14 @@
             <!-- Login Form -->
             <div id="login-page" class="container-fluid">
                 <div class="row">
-                    <form action="#" method="post" id="loginForm">
+                    <form action="/user/login" method="post" id="loginForm">
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" placeholder="Username" name="username">
+                            <input type="text" class="form-control" placeholder="Username" name="userEntity.username">
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Password" name="password">
+                            <input type="password" class="form-control" placeholder="Password" name="userEntity.password">
                         </div>
                         <button type="submit" class="btn btn-info">登录</button>
                     </form>

@@ -9,5 +9,8 @@
         <action name="checkUsername" class="org.sos.sixbox.user.action.CheckUsername">
             <result name="success">checkUsername.jsp</result>
         </action>
+        <action name="login" class="org.sos.sixbox.user.action.UserLogin">
+            <result name="success">/box/boxhome.jsp</result>
+        </action>
     </package>
 </struts>
