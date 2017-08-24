@@ -10,8 +10,8 @@
             <result name="success">checkUsername.jsp</result>
         </action>
         <action name="login" class="org.sos.sixbox.user.action.UserLogin">
-            <result name="success">success.jsp</result>
-            <result name="error">error.jsp</result>
+            <result name="success">/box/boxhome.jsp</result>
+            <result name="error">/index.jsp</result>
         </action>
     </package>
 </struts>

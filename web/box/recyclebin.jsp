@@ -7,17 +7,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+<html>
 <head>
     <title>回收站 - SixBox</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/boxpage.css">
+    <link rel="stylesheet" href="../static/css/boxpage.css">
 </head>
 <body>
 <div class="wrap">
     <!-- 左侧导航栏 -->
     <div class="leftbar">
-        <img src="../images/SixBox_logo_boxhome.jpg" alt="logo">
+        <img src="../static/images/SixBox_logo_boxhome.jpg" alt="logo">
         <div class="nav-content">
             <ul class="nav-item">
                 <li><a href="./boxhome.jsp">文件</a></li>
@@ -42,11 +43,11 @@
                 </form>
             </div>
             <div class="personalInfo">
-                <a href="javascript:void(0);"><img src="../images/profile.jpg" alt="profileImg"></a>
+                <a href="javascript:void(0);"><img src="../static/images/profile.jpg" alt="profileImg"></a>
                 <div class="info-panel">
                     <div class="info-panel-warp">
                         <div class="detail-panel">
-                            <img src="images/profile.jpg" alt="profileImg">
+                            <img src="../static/images/profile.jpg" alt="profileImg">
                             <span>UserName</span>
                         </div>
                         <div class="storage-panel">
@@ -112,9 +113,9 @@
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../static/js/jquery-3.2.1.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="../js/binScript.js"></script>
+<script src="../static/js/binScript.js"></script>
 </body>
 </html>
