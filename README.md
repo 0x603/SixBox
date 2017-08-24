@@ -12,6 +12,7 @@ A tiny net-disk.
 |struts2-spring-plugin|2.3.20.1|
 |servlet-api          | 3.0-a-1|
 |junit                |    4.12|
+|spring-data-mongodb  |  1.10.6|
 
 ## Docs
 * [开发环境配置](docs/README.md)

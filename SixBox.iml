@@ -56,5 +56,6 @@
     <orderEntry type="library" name="org.springframework:spring-web:4.3.10.RELEASE" level="project" />
     <orderEntry type="library" name="javax.servlet:servlet-api:3.0-alpha-1" level="project" />
     <orderEntry type="library" name="junit:junit:4.12" level="project" />
+    <orderEntry type="library" name="org.springframework.data:spring-data-mongodb:1.10.6.RELEASE" level="project" />
   </component>
 </module>
