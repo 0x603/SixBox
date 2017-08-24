@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Lodour
-  Date: 2017/8/15
-  Time: 09:56
+  User: zc
+  Date: 2017/8/24
+  Time: 21:05
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -21,7 +21,7 @@
 <body>
 <header class="index-header">
     <div class="head-container">
-        <h1><img src="/static/images/SixBox_logo.jpg" alt="logo" height="65">SixBox</h1>
+        <h1><img src="${pageContext.request.contextPath}/static/images/SixBox_logo.jpg" alt="logo" height="65">SixBox</h1>
     </div>
 </header>
 <div class="content">
@@ -29,13 +29,13 @@
         <img src="${pageContext.request.contextPath}/static/images/index_img.png" alt="index_img">
         <div class="login-register">
             <div class="info-page">
-                <div class="info-header">登录</div>
-                <div class="login-register-switch"><span>或</span><a href="/user/register.jsp">创建账户</a></div>
+                <div class="info-header">创建账户</div>
+                <div class="login-register-switch"><span>或</span><a href="/index.jsp">登录</a></div>
             </div>
-            <!-- Login Form -->
-            <div id="login-page" class="container-fluid">
+            <!-- Register Form -->
+            <div id="register-page" class="container-fluid">
                 <div class="row">
-                    <form action="<s:url action="login" namespace="/user"/>" method="post" id="loginForm">
+                    <form action="<s:url action="register" namespace="/user"/>" method="post" id="registerForm">
                         <div class="form-group">
                             <label>Username</label>
                             <input type="text" class="form-control" placeholder="Username" name="username">
@@ -44,10 +44,14 @@
                             <label>Password</label>
                             <input type="password" class="form-control" placeholder="Password" name="password">
                         </div>
-                        <button type="submit" class="btn btn-info">登录</button>
+                        <div class="form-group">
+                            <label>Retype Password</label>
+                            <input type="password" class="form-control" placeholder="Confirm Password" name="confirmPassword">
+                        </div>
+                        <button type="submit" class="btn btn-info" id="btntest">注册</button>
                     </form>
                 </div>
-            </div><!-- End of Login Form -->
+            </div><!-- End of Register Form -->
         </div>
     </div>
 </div>
@@ -84,3 +88,4 @@
 <script src="${pageContext.request.contextPath}/static/js/indexScript.js"></script>
 </body>
 </html>
+

@@ -57,9 +57,9 @@
 #login-page {
     
 }
-#register-page {
-    display: none;
-}
+/*#register-page {*/
+    /*display: none;*/
+/*}*/
 
 .page-footer {
     width: 1000px;

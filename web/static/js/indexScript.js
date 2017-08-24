@@ -1,18 +1,18 @@
 $(function(){
-    var switcher=$(".login-register-switch>a");
-    switcher.click(function(){
-        if ($(this).text()==="创建账户") {
-            $(this).text("登录");
-            $(".info-header").text("创建账户");
-            $("#login-page").css("display","none");
-            $("#register-page").css("display","block");
-        }else{
-            $(this).text("创建账户");
-            $(".info-header").text("登录");
-            $("#login-page").css("display","block");
-            $("#register-page").css("display","none");
-        }
-    });
+    // var switcher=$(".login-register-switch>a");
+    // switcher.click(function(){
+    //     if ($(this).text()==="创建账户") {
+    //         $(this).text("登录");
+    //         $(".info-header").text("创建账户");
+    //         $("#login-page").css("display","none");
+    //         $("#register-page").css("display","block");
+    //     }else{
+    //         $(this).text("创建账户");
+    //         $(".info-header").text("登录");
+    //         $("#login-page").css("display","block");
+    //         $("#register-page").css("display","none");
+    //     }
+    // });
 
     // Validation for login form
     $("#loginForm").bootstrapValidator({
