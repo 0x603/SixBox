@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="org.springframework.data:spring-data-mongodb:1.10.6.RELEASE" type="repository">
+    <properties maven-id="org.springframework.data:spring-data-mongodb:1.10.6.RELEASE" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/spring-data-mongodb-1.10.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-tx-4.3.10.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-context-4.3.10.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-aop-4.3.10.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-beans-4.3.10.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-core-4.3.10.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-expression-4.3.10.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spring-data-commons-1.13.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mongo-java-driver-2.14.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.25.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
