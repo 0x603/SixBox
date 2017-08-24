@@ -1,0 +1,2 @@
+use sixBoxFile
+db.userList.insert({tips:"for initial"})
