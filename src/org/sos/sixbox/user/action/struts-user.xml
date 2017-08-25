@@ -17,5 +17,8 @@
             <result name="success">/index.jsp</result>
             <result name="error">error.jsp</result>
         </action>
+        <action name="logout" class="org.sos.sixbox.user.action.UserLogout">
+            <result name="success">/index.jsp</result>
+        </action>
     </package>
 </struts>

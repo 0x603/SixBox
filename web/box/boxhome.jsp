@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,7 @@
         <img src="../static/images/SixBox_logo_boxhome.jpg" alt="logo">
         <div class="nav-content">
             <ul class="nav-item">
+                <%--<li>Username:<s:property value="#session.username" /></li>--%>
                 <li><a href="/box/boxhome.jsp" style="color: #0070E0;">文件</a></li>
                 <li><a href="">分享</a></li>
                 <li><a href="/box/recyclebin.jsp">回收站</a></li>
@@ -46,14 +48,14 @@
                     <div class="info-panel-warp">
                         <div class="detail-panel">
                             <img src="../static/images/profile.jpg" alt="profileImg">
-                            <span>UserName</span>
+                            <span><s:property value="#session.username" /></span>
                         </div>
                         <div class="storage-panel">
                             <span>已使用xxxMB(共 xx GB)</span>
                         </div>
                         <div class="action-panel">
                             <a href="#">设置</a>
-                            <a href="#">注销</a>
+                            <a href="<s:url namespace="/user" action="logout"/>">注销</a>
                         </div>
                     </div>
                 </div>
@@ -158,5 +160,12 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="../static/js/boxScript.js"></script>
+<script>
+    $(function () {
+        console.log("This is box home!");
+        const myName="<%=session.getAttribute("username")%>";
+        alert(myName);
+    })
+</script>
 </body>
 </html>
