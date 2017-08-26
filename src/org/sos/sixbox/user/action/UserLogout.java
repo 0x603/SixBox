@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
  * 用户注销
  */
 @Controller
-public class UserLogout extends ActionVariableSupport {
+public class  UserLogout extends ActionVariableSupport {
     public String execute() {
         httpSession.put("username", null);
         return SUCCESS;
