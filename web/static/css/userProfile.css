@@ -1,0 +1,54 @@
+.wrap {
+    width: 1000px;
+    margin:0 auto;
+}
+header {
+    margin-top: 20px;
+}
+header img{
+   height: 55px;
+}
+h3 {
+    margin-bottom: 20px;
+}
+.title {
+    display: block;
+    border-bottom: 1px solid rgba(99, 114, 130, 0.18);
+}
+.account-info h4 {
+    margin-top: 20px;
+}
+.account-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    margin-top: 20px;
+    display: inline-block;
+}
+.profile-photo {
+    line-height: 60px;
+}
+.profile-photo a {
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    vertical-align: middle;
+    display: inline-block;
+    text-decoration: none;
+}
+.account-email {
+    margin-top:30px;
+}
+.account-email a {
+    font-size: 16px;
+    text-decoration: none;
+}
+.account-security,.account-storage {
+    margin-top: 30px;
+}
+.account-security h4,.account-storage h4 {
+    margin-top: 20px;
+}
+.account-security button {
+    margin-top: 20px;
+}

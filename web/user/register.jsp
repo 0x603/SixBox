@@ -38,7 +38,15 @@
                     <form action="<s:url action="register" namespace="/user"/>" method="post" id="registerForm">
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" placeholder="Username" name="username">
+                            <input type="text" class="form-control" placeholder="Username" name="username" id="username">
+                            <label style="font-weight: normal;display: none;" id="uniqueAlert">
+                                <span class="glyphicon glyphicon-exclamation-sign" style="color: #a94442" aria-hidden="true"></span>
+                                <span style="color: #a94442">The username has already existed</span>
+                            </label>
+                            <label style="font-weight: normal;display: none" id="validInfo">
+                                <span class="glyphicon glyphicon-ok-sign" style="color: #3c763d" aria-hidden="true"></span>
+                                <span style="color: #3c763d">The username is valid</span>
+                            </label>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
@@ -86,6 +94,32 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src=https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js></script>
 <script src="${pageContext.request.contextPath}/static/js/indexScript.js"></script>
+<script>
+    $(function () {
+        const uniqueAlert = $('#uniqueAlert');
+        const validInfo = $('#validInfo');
+        const btn = $('#register-btn');
+        $('#username').blur(() => {
+            $.ajax({
+                url: '/user/checkUsername',
+                type: 'get',
+                data: {username: $('#username').val()},
+                dataType: 'json',
+                success: (data, status) => {
+                uniqueAlert.css('display','none');
+        validInfo.css('display','none');
+        if (data === true && $('#username').val()) {
+            uniqueAlert.css('display','block');
+            btn.attr('disabled',true);
+        } else if (data === false && $('#username').val()) {
+            validInfo.css('display','block');
+            btn.attr('disabled',false);
+        }
+    }
+    });
+    })
+    });
+</script>
 </body>
 </html>
 
