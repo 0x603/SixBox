@@ -2,6 +2,8 @@ package mongo;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.mongodb.gridfs.GridFSDBFile;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +13,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static mongo.FileUtils.testFileName;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.query.Update.update;
+import static org.springframework.data.mongodb.gridfs.GridFsCriteria.whereFilename;
 
 /**
  * Created by Lodour on 2017/8/24 22:26.
@@ -26,10 +29,6 @@ import static org.springframework.data.mongodb.core.query.Update.update;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-config.xml")
 public class TestMongoDB {
-    /**
-     * 测试文件名
-     */
-    private final String testFileName = "test.txt";
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -67,7 +66,8 @@ public class TestMongoDB {
 
     @Test
     public void testGridFs() throws IOException {
-        // TODO: 创建测试文件
+        // 创建测试文件
+        FileUtils.createTestFile();
 
         // 文件元信息
         DBObject metaData = new BasicDBObject();
@@ -75,59 +75,22 @@ public class TestMongoDB {
         metaData.put("extra2", "anything 2");
 
         // 获得文件流并保存
-        InputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(testFileName);
-            gridFsOperations.store(inputStream, testFileName, metaData);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        InputStream inputStream = new FileInputStream(testFileName);
+        gridFsOperations.store(inputStream, testFileName, metaData);
+        inputStream.close();
 
-        // TODO: 查询保存的文件
+        // 查询保存的文件
+        List<GridFSDBFile> result = gridFsOperations.find(query(whereFilename().is(testFileName)));
+        Assert.assertEquals(result.size(), 1);
 
-        // TODO: 删除保存的文件
+        // 删除保存的文件
+        gridFsOperations.delete(query(whereFilename().is(testFileName)));
 
-        // TODO: 查询删除的文件
+        // 查询删除的文件
+        result = gridFsOperations.find(query(whereFilename().is(testFileName)));
+        Assert.assertEquals(result.size(), 0);
 
-        // TODO: 删除测试文件
+        // 删除测试文件
+        FileUtils.removeTestFile();
     }
-}
-
-
-class Person {
-
-    private String id;
-    private String name;
-    private int age;
-
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    @Override
-    public String toString() {
-        return "Person [id=" + id + ", name=" + name + ", age=" + age + "]";
-    }
-
 }
