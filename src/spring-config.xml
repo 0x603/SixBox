@@ -25,6 +25,12 @@
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
     </bean>
+    <!-- 数据源设置 GridFS -->
+    <mongo:mapping-converter id="converter"/>
+    <bean id="gridFsOperations" class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+        <constructor-arg ref="mongoDbFactory"/>
+        <constructor-arg ref="converter"/>
+    </bean>
 
 
     <!-- 在Spring中集成Hibernate session factory -->
