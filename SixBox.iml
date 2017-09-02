@@ -54,8 +54,8 @@
     <orderEntry type="library" name="mysql:mysql-connector-java:5.1.42" level="project" />
     <orderEntry type="library" name="org.apache.struts:struts2-spring-plugin:2.3.20.1" level="project" />
     <orderEntry type="library" name="org.springframework:spring-web:4.3.10.RELEASE" level="project" />
-    <orderEntry type="library" name="javax.servlet:servlet-api:3.0-alpha-1" level="project" />
     <orderEntry type="library" name="junit:junit:4.12" level="project" />
     <orderEntry type="library" name="org.springframework.data:spring-data-mongodb:1.10.6.RELEASE" level="project" />
+    <orderEntry type="library" name="com.hynnet:javax.servlet-api:3.1.0" level="project" />
   </component>
 </module>
