@@ -1,4 +1,4 @@
-package org.sos.sixbox.file.repository;
+package org.sos.sixbox.box.repository;
 
 import org.sos.sixbox.entity.FileEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;

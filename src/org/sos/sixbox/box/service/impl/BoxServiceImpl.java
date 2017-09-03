@@ -1,10 +1,10 @@
-package org.sos.sixbox.file.service.impl;
+package org.sos.sixbox.box.service.impl;
 
 import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFSFile;
+import org.sos.sixbox.box.repository.FileRepository;
+import org.sos.sixbox.box.service.BoxService;
 import org.sos.sixbox.entity.FileEntity;
-import org.sos.sixbox.file.repository.FileRepository;
-import org.sos.sixbox.file.service.FileService;
 import org.sos.sixbox.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
@@ -19,13 +19,13 @@ import java.io.FileNotFoundException;
  * 文件服务
  */
 @Service
-public class FileServiceImpl implements FileService {
+public class BoxServiceImpl implements BoxService {
 
     private final FileRepository fileRepository;
     private final GridFsOperations gridFsOperations;
 
     @Autowired
-    public FileServiceImpl(FileRepository fileRepository, GridFsOperations gridFsOperations) {
+    public BoxServiceImpl(FileRepository fileRepository, GridFsOperations gridFsOperations) {
         this.fileRepository = fileRepository;
         this.gridFsOperations = gridFsOperations;
     }

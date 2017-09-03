@@ -6,9 +6,9 @@ import mongo.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.sos.sixbox.box.repository.FileRepository;
+import org.sos.sixbox.box.service.BoxService;
 import org.sos.sixbox.entity.FileEntity;
-import org.sos.sixbox.file.repository.FileRepository;
-import org.sos.sixbox.file.service.FileService;
 import org.sos.sixbox.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,7 +27,7 @@ public class TestFile {
     @Autowired
     UserService userService;
     @Autowired
-    FileService fileService;
+    BoxService boxService;
     @Autowired
     FileRepository fileRepository;
 
@@ -47,7 +47,7 @@ public class TestFile {
 
         // 上传文件
         int fileCountBeforeUpload = fileRepository.findAllByOwnerId(someone).size();
-        fileService.upload(fileEntity, uploadFile, metaData);
+        boxService.upload(fileEntity, uploadFile, metaData);
         int fileCountAfterUpload = fileRepository.findAllByOwnerId(someone).size();
         Assert.assertEquals(fileCountBeforeUpload + 1, fileCountAfterUpload);
         fileRepository.deleteAllByOwnerId(someone);
