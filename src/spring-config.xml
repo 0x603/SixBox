@@ -31,6 +31,8 @@
         <constructor-arg ref="mongoDbFactory"/>
         <constructor-arg ref="converter"/>
     </bean>
+    <!-- 自动搜索所有的继承了MongoRepository的类 -->
+    <mongo:repositories base-package="org.sos.sixbox.*.repository"/>
 
 
     <!-- 在Spring中集成Hibernate session factory -->
