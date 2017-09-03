@@ -3,9 +3,11 @@ package file;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import mongo.FileUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sos.sixbox.entity.FileEntity;
+import org.sos.sixbox.file.repository.FileRepository;
 import org.sos.sixbox.file.service.FileService;
 import org.sos.sixbox.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +25,34 @@ import java.io.IOException;
 public class TestFile {
 
     @Autowired
-    FileService fileService;
-
-    @Autowired
     UserService userService;
+    @Autowired
+    FileService fileService;
+    @Autowired
+    FileRepository fileRepository;
 
     @Test
     public void testUploadFile() throws IOException {
         // 创建测试文件
+        int someone = 1000;
         File uploadFile = FileUtils.createTestFile();
 
         // 文件实体
         FileEntity fileEntity = new FileEntity();
-        fileEntity.setOwner(userService.getById(1));
+        fileEntity.setOwnerId(someone);
 
         // 文件元信息
         DBObject metaData = new BasicDBObject();
         metaData.put("info", "testUploadFile");
 
         // 上传文件
+        int fileCountBeforeUpload = fileRepository.findAllByOwnerId(someone).size();
         fileService.upload(fileEntity, uploadFile, metaData);
+        int fileCountAfterUpload = fileRepository.findAllByOwnerId(someone).size();
+        Assert.assertEquals(fileCountBeforeUpload + 1, fileCountAfterUpload);
+        fileRepository.deleteAllByOwnerId(someone);
+        int fileCountAfterDelete = fileRepository.findAllByOwnerId(someone).size();
+        Assert.assertEquals(fileCountAfterDelete, 0);
 
         // 删除测试文件
         FileUtils.removeTestFile();

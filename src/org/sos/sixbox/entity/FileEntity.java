@@ -1,10 +1,9 @@
 package org.sos.sixbox.entity;
 
-import com.mongodb.gridfs.GridFSFile;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -14,11 +13,11 @@ import java.sql.Timestamp;
 public class FileEntity {
     @Id
     private String id;
-    private GridFSFile file; // TODO: 改为文件ID
-    private UserEntity owner; // TODO: 改为用户ID
+    private String fileId;
+    private int ownerId;
     private String filename;
     private String contentType;
-    private Timestamp uploadTime;
+    private Date uploadTime;
 
     public String getId() {
         return id;
@@ -28,21 +27,6 @@ public class FileEntity {
         this.id = id;
     }
 
-    public GridFSFile getFile() {
-        return file;
-    }
-
-    public void setFile(GridFSFile file) {
-        this.file = file;
-    }
-
-    public UserEntity getOwner() {
-        return owner;
-    }
-
-    public void setOwner(UserEntity owner) {
-        this.owner = owner;
-    }
 
     public String getFilename() {
         return filename;
@@ -52,11 +36,11 @@ public class FileEntity {
         this.filename = filename;
     }
 
-    public Timestamp getUploadTime() {
+    public Date getUploadTime() {
         return uploadTime;
     }
 
-    public void setUploadTime(Timestamp uploadTime) {
+    public void setUploadTime(Date uploadTime) {
         this.uploadTime = uploadTime;
     }
 
@@ -66,5 +50,21 @@ public class FileEntity {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    public String getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(String fileId) {
+        this.fileId = fileId;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 }

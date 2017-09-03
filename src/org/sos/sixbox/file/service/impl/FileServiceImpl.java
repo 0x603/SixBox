@@ -31,9 +31,12 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
+     * 上传文件
+     *
      * @param fileEntity 文件实体
      * @param file       待上传文件
      * @param metaData   文件元数据
+     * @throws FileNotFoundException 文件不存在
      */
     @Override
     public void upload(FileEntity fileEntity, File file, DBObject metaData) throws FileNotFoundException {
@@ -42,8 +45,21 @@ public class FileServiceImpl implements FileService {
         GridFSFile uploadFile = gridFsOperations.store(fileStream, fileEntity.getFilename(), metaData);
 
         // Save entity to MongoDB
-        fileEntity.setFile(uploadFile);
+        fileEntity.setFileId(uploadFile.getId().toString());
         fileEntity.setUploadTime(Utils.getCurrentTimestamp());
+        fileEntity.setFilename(file.getName());
         fileRepository.save(fileEntity);
+    }
+
+    /**
+     * 上传文件
+     *
+     * @param fileEntity 文件实体
+     * @param file       待上传文件
+     * @throws FileNotFoundException 文件不存在
+     */
+    @Override
+    public void upload(FileEntity fileEntity, File file) throws FileNotFoundException {
+        upload(fileEntity, file, null);
     }
 }

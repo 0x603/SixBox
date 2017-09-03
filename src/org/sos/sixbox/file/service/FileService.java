@@ -12,12 +12,21 @@ import java.io.FileNotFoundException;
  */
 public interface FileService {
     /**
+     * 上传文件
+     *
      * @param fileEntity 文件实体
      * @param file       待上传文件
      * @param metaData   文件元数据
+     * @throws FileNotFoundException 文件不存在
      */
     void upload(FileEntity fileEntity, File file, DBObject metaData) throws FileNotFoundException;
 
-    // TODO: 无元数据的上传文件
-    // TODO: 删除文件
+    /**
+     * 上传文件(无元数据)
+     *
+     * @param fileEntity 文件实体
+     * @param file       待上传文件
+     * @throws FileNotFoundException 文件不存在
+     */
+    void upload(FileEntity fileEntity, File file) throws FileNotFoundException;
 }
