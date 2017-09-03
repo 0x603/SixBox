@@ -13,4 +13,6 @@ public interface FileRepository extends MongoRepository<FileEntity, String> {
     List<FileEntity> findAllByOwnerId(int id);
 
     void deleteAllByOwnerId(int id);
+
+    void deleteById(String id);
 }

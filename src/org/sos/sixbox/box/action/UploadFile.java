@@ -12,6 +12,11 @@ import java.io.IOException;
 
 /**
  * Created by Lodour on 2017/9/3 16:42.
+ * 上传单个文件
+ *
+ * Usage:
+ * 登录状态下，提交类似如下表单
+ * http://paste.ubuntu.com/25458597/
  */
 @Controller
 public class UploadFile extends ActionVariableSupport {

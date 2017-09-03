@@ -15,6 +15,10 @@ import java.util.List;
 
 /**
  * Created by Lodour on 2017/9/3 16:42.
+ * 查询登录用户所有上传的文件
+ *
+ * Usage:
+ * 登录状态下，GET后在jsp页面中从request获取fileEntityList
  */
 @Controller
 public class UploadFileList extends ActionVariableSupport {
