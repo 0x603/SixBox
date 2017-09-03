@@ -30,6 +30,4 @@ public interface BoxService {
      * @throws FileNotFoundException 文件不存在
      */
     void upload(FileEntity fileEntity, File file) throws FileNotFoundException;
-
-    // TODO: 下载文件
 }

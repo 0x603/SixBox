@@ -1,4 +1,4 @@
-package file;
+package box;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -22,7 +22,7 @@ import java.io.IOException;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-config.xml")
-public class TestFile {
+public class TestBox {
 
     @Autowired
     UserService userService;

@@ -47,7 +47,6 @@ public class BoxServiceImpl implements BoxService {
         // Save entity to MongoDB
         fileEntity.setFileId(uploadFile.getId().toString());
         fileEntity.setUploadTime(Utils.getCurrentTimestamp());
-        fileEntity.setFilename(file.getName());
         fileRepository.save(fileEntity);
     }
 

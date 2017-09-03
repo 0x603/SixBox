@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 public class  UserLogout extends ActionVariableSupport {
     public String execute() {
         httpSession.put("username", null);
+        httpSession.put("userEntity", null);
         return SUCCESS;
     }
 }
