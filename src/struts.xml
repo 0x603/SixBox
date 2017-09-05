@@ -21,4 +21,5 @@
 
     <!-- 引入其他子配置 -->
     <include file="org/sos/sixbox/user/action/struts-user.xml"/>
+    <include file="org/sos/sixbox/box/action/struts-box.xml"/>
 </struts>

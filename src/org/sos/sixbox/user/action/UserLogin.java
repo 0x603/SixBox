@@ -32,6 +32,7 @@ public class UserLogin extends ActionVariableSupport implements ModelDriven<User
         String ip = httpServletRequest.getRemoteAddr();
         if (userService.loginUser(username, password, ip)) {
             httpSession.put("username", username);
+            httpSession.put("userEntity", userService.getByUsername(username));
             return SUCCESS;
         }
         return ERROR;
