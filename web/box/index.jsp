@@ -54,7 +54,7 @@
                             <span>已使用xxxMB(共 xx GB)</span>
                         </div>
                         <div class="action-panel">
-                            <a href="#">设置</a>
+                            <a href="${pageContext.request.contextPath}/user/userProfile.jsp">设置</a>
                             <a href="<s:url namespace="/user" action="logout"/>">注销</a>
                         </div>
                     </div>
