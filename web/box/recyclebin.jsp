@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,8 +55,8 @@
                             <span>已使用xxxMB(共 xx GB)</span>
                         </div>
                         <div class="action-panel">
-                            <a href="#">设置</a>
-                            <a href="#">注销</a>
+                            <a href="${pageContext.request.contextPath}/user/userProfile.jsp">设置</a>
+                            <a href="<s:url namespace="/user" action="logout"/>">注销</a>
                         </div>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
             <div class="table-fixed">
                 <table>
                     <tr>
-                        <th class="checkbox-th"><input type="checkbox"></th>
+                        <th class="checkbox-th"><input type="checkbox" style="visibility: hidden"></th>
                         <th class="name-th">名称</th>
                         <th class="time-th">删除时间</th>
                         <th class="button-th"></th>
@@ -79,20 +80,23 @@
             <div class="table-content">
                 <table>
                     <tr>
+                        <td class="checkbox-th"><input type="hidden" value="1"></td>
                         <td class="checkbox-th"><input type="checkbox"></td>
                         <td class="name-th">File Name 1</td>
                         <td class="time-th">2017-07-08</td>
                         <td class="button-th"></td>
                     </tr>
                     <tr>
+                        <td class="checkbox-th"><input type="hidden" value="1"></td>
                         <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 1</td>
+                        <td class="name-th">File Name 2</td>
                         <td class="time-th">2017-07-08</td>
                         <td class="button-th"></td>
                     </tr>
                     <tr>
+                        <td class="checkbox-th"><input type="hidden" value="3"></td>
                         <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 1</td>
+                        <td class="name-th">File Name 3</td>
                         <td class="time-th">2017-07-08</td>
                         <td class="button-th"></td>
                     </tr>

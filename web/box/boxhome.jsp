@@ -54,7 +54,7 @@
                             <span>已使用xxxMB(共 xx GB)</span>
                         </div>
                         <div class="action-panel">
-                            <a href="#">设置</a>
+                            <a href="${pageContext.request.contextPath}/user/userProfile.jsp">设置</a>
                             <a href="<s:url namespace="/user" action="logout"/>">注销</a>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
             <div class="table-fixed">
                 <table>
                     <tr>
-                        <th class="checkbox-th"><input type="checkbox"></th>
+                        <th class="checkbox-th"><input type="checkbox" style="visibility: hidden"></th>
                         <th class="name-th">名称</th>
                         <th class="time-th">创建时间</th>
                         <th class="button-th"></th>
@@ -79,6 +79,8 @@
             <div class="table-content">
                 <table>
                     <tr>
+                        <%--可用户存放文件或文件夹的Id--%>
+                        <td style="display: none"><input type="hidden" value="1" name="fileId"></td>
                         <td class="checkbox-th"><input type="checkbox"></td>
                         <td class="name-th">File Name 1</td>
                         <td class="time-th">2017-07-08</td>
@@ -98,7 +100,8 @@
                     </tr>
                     <tr>
                         <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 1</td>
+                        <td style="display: none"><input type="hidden" value="2" name="fileId"></td>
+                        <td class="name-th">File Name 2</td>
                         <td class="time-th">2017-07-08</td>
                         <td class="button-th">
                             <div class="btn-group">
@@ -116,7 +119,8 @@
                     </tr>
                     <tr>
                         <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 1</td>
+                        <td style="display: none"><input type="hidden" value="3" name="fileId"></td>
+                        <td class="name-th">File Name 3</td>
                         <td class="time-th">2017-07-08</td>
                         <td class="button-th">
                             <div class="btn-group">
@@ -138,7 +142,7 @@
         <!-- 右侧操作栏 -->
         <div class="main-right">
             <div class="action-menu">
-                <button type="button" class="btn btn-info btn-block">上传文件</button>
+                <button type="file" class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal">上传文件</button>
                 <!-- 选中一个或多个文件的功能列表 -->
                 <ul class="single-item-action">
                     <li><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span><a href="">下载</a></li>
@@ -154,7 +158,29 @@
         </div>
     </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">上传文件</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="fileUpload">File input</label>
+                        <input type="file" id="fileUpload">
+                    </div>
+                    <button type="submit" class="btn btn-default">上传</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="../static/js/jquery-3.2.1.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
@@ -162,9 +188,7 @@
 <script src="../static/js/boxScript.js"></script>
 <script>
     $(function () {
-        console.log("This is box home!");
-        const myName="<%=session.getAttribute("username")%>";
-        alert(myName);
+
     })
 </script>
 </body>

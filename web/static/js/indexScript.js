@@ -43,11 +43,11 @@ $(function(){
     // Validation for register form
     $("#registerForm").bootstrapValidator({
         message:'This value is not valid',
-        feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
+        // feedbackIcons: {
+        //         // valid: 'glyphicon glyphicon-ok',
+        //         invalid: 'glyphicon glyphicon-remove',
+        //         validating: 'glyphicon glyphicon-refresh'
+        //     },
         fields: {
             username: {
                 message: 'The username is not valid',
