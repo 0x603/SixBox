@@ -11,6 +11,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+    if (session.getAttribute("username") == null) {
+        response.sendRedirect("/index.jsp");
+    }
+%>
 <s:action name="FileList" namespace="/box"/>
 <!DOCTYPE html>
 <html>
@@ -123,7 +128,9 @@
                     <tr>
                         <td style="display: none"><input type="hidden" value="<%=file.getId()%>" name="fileId"></td>
                         <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th"><%=file.getFilename()%>
+                        <td class="name-th"><a
+                                href="<s:url action="DownloadFile" namespace="/box" />?fid=<%=file.getId()%>"><%=file.getFilename()%>
+                        </a>
                         </td>
                         <td class="time-th"><%=Utils.getFormatDate(file.getUploadTime())%>
                         </td>
@@ -165,7 +172,8 @@
                     <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><a href="">重命名</a></li>
                 </ul>
                 <ul class="none-item-action">
-                    <li><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span><a href="">新建文件夹</a>
+                    <li><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span><a
+                            href="<s:url action="CreateFolder" namespace="/box" />?fid=<%=request.getParameter("pwd")%>">新建文件夹</a>
                     </li>
                 </ul>
             </div>

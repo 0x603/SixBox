@@ -20,5 +20,8 @@
                 <param name="bufferSize">1024</param>
             </result>
         </action>
+        <action name="CreateFolder" class="org.sos.sixbox.box.action.CreateFolder">
+            <result name="success">home.jsp</result>
+        </action>
     </package>
 </struts>

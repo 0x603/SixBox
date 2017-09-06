@@ -103,7 +103,8 @@ public class FolderServiceImpl implements FolderService {
         // Remove src from srcParent.children
         if (srcParent != null) {
             List<String> srcParentChildren = srcParent.getChildren();
-            srcParentChildren.remove(srcId);
+            if (srcParentChildren != null)
+                srcParentChildren.remove(srcId);
             srcParent.setChildren(srcParentChildren);
             folderRepository.save(srcParent);
         } else {
