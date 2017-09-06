@@ -39,7 +39,7 @@ public class BoxServiceImpl implements BoxService {
      * @throws FileNotFoundException 文件不存在
      */
     @Override
-    public void upload(FileEntity fileEntity, File file, DBObject metaData) throws FileNotFoundException {
+    public FileEntity upload(FileEntity fileEntity, File file, DBObject metaData) throws FileNotFoundException {
         // Upload to GridFS
         FileInputStream fileStream = new FileInputStream(file);
         GridFSFile uploadFile = gridFsOperations.store(fileStream, fileEntity.getFilename(), metaData);
@@ -47,7 +47,7 @@ public class BoxServiceImpl implements BoxService {
         // Save entity to MongoDB
         fileEntity.setFileId(uploadFile.getId().toString());
         fileEntity.setUploadTime(Utils.getCurrentTimestamp());
-        fileRepository.save(fileEntity);
+        return fileRepository.save(fileEntity);
     }
 
     /**
@@ -58,7 +58,7 @@ public class BoxServiceImpl implements BoxService {
      * @throws FileNotFoundException 文件不存在
      */
     @Override
-    public void upload(FileEntity fileEntity, File file) throws FileNotFoundException {
-        upload(fileEntity, file, null);
+    public FileEntity upload(FileEntity fileEntity, File file) throws FileNotFoundException {
+        return upload(fileEntity, file, null);
     }
 }

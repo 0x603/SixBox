@@ -22,7 +22,7 @@
         <img src="../static/images/SixBox_logo_boxhome.jpg" alt="logo">
         <div class="nav-content">
             <ul class="nav-item">
-                <li><a href="./boxhome.jsp">文件</a></li>
+                <li><a href="./home.jsp">文件</a></li>
                 <li><a href="#">分享</a></li>
                 <li><a href="./recyclebin.jsp" style="color: #0070E0;">回收站</a></li>
             </ul>

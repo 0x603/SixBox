@@ -6,5 +6,11 @@
 
 <struts>
     <package name="box" namespace="/box" extends="default">
+        <action name="UploadFile" class="org.sos.sixbox.box.action.UploadFile">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="FileList" class="org.sos.sixbox.box.action.FileList">
+            <result name="success">home.jsp</result>
+        </action>
     </package>
 </struts>

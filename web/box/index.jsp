@@ -22,7 +22,7 @@
         <div class="nav-content">
             <ul class="nav-item">
                 <%--<li>Username:<s:property value="#session.username" /></li>--%>
-                <li><a href="${pageContext.request.contextPath}/box/boxhome.jsp">文件</a></li>
+                <li><a href="${pageContext.request.contextPath}/box/home.jsp">文件</a></li>
                 <li><a href="">分享</a></li>
                 <li><a href="${pageContext.request.contextPath}/box/recyclebin.jsp">回收站</a></li>
             </ul>
