@@ -1,6 +1,7 @@
 package org.sos.sixbox.box.service.impl;
 
 import com.mongodb.DBObject;
+import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
 import org.sos.sixbox.box.repository.FileRepository;
 import org.sos.sixbox.box.service.BoxService;
@@ -14,11 +15,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+
 /**
  * Created by Lodour on 2017/9/3 00:13.
  * 文件服务
  */
 @Service
+
 public class BoxServiceImpl implements BoxService {
 
     private final FileRepository fileRepository;
@@ -60,5 +65,17 @@ public class BoxServiceImpl implements BoxService {
     @Override
     public FileEntity upload(FileEntity fileEntity, File file) throws FileNotFoundException {
         return upload(fileEntity, file, null);
+    }
+
+    /**
+     * 下载文件
+     *
+     * @param id 文件ID
+     * @return 文件File
+     */
+    @Override
+    public GridFSDBFile download(String id) {
+        FileEntity fileEntity = fileRepository.findById(id);
+        return gridFsOperations.find(query(where("_id").is(fileEntity.getFileId()))).get(0);
     }
 }

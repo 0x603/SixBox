@@ -104,7 +104,6 @@
                                         class="glyphicon glyphicon-list"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">下载</a></li>
                                     <li><a href="#">重命名</a></li>
                                     <li><a href="#">复制</a></li>
                                     <li><a href="#">移动</a></li>
@@ -135,7 +134,9 @@
                                         class="glyphicon glyphicon-list"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">下载</a></li>
+                                    <li>
+                                        <a href="<s:url action="DownloadFile" namespace="/box" />?fid=<%=file.getId()%>">下载</a>
+                                    </li>
                                     <li><a href="#">重命名</a></li>
                                     <li><a href="#">复制</a></li>
                                     <li><a href="#">移动</a></li>
