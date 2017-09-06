@@ -1,6 +1,7 @@
 package org.sos.sixbox.folder.service.impl;
 
 import org.sos.sixbox.box.repository.FileRepository;
+import org.sos.sixbox.entity.FileEntity;
 import org.sos.sixbox.entity.FolderEntity;
 import org.sos.sixbox.entity.UserEntity;
 import org.sos.sixbox.folder.repository.FolderRepository;
@@ -10,13 +11,14 @@ import org.sos.sixbox.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Lodour on 2017/9/3 23:52.
  */
 @Service
-
 public class FolderServiceImpl implements FolderService {
 
     private final FolderRepository folderRepository;
@@ -47,7 +49,11 @@ public class FolderServiceImpl implements FolderService {
      */
     @Override
     public void initSystemFolder() {
-        FolderEntity root = new FolderEntity();
+        FolderEntity root = folderRepository.getRootFolder();
+        if (root != null) {
+            deleteFolder(root.getId());
+        }
+        root = new FolderEntity();
         root.setName("/");
         createFolder(root);
     }
@@ -63,18 +69,23 @@ public class FolderServiceImpl implements FolderService {
         UserEntity user = userService.getById(userId);
 
         // 创建用户根目录
-        FolderEntity userRoot = new FolderEntity();
-        userRoot.setName(user.getUsername());
-        userRoot.setOwnerId(user.getId());
-        userRoot.setParent(folderRepository.getRootFolder().getId());
-        userRoot = createFolder(userRoot);
+        FolderEntity userRoot = folderRepository.getUserRootFolder(user.getUsername(), user.getId());
+        if (userRoot == null) {
+            userRoot = new FolderEntity();
+            userRoot.setName(user.getUsername());
+            userRoot.setOwnerId(user.getId());
+            userRoot = createFolder(userRoot);
+            moveFolderToFolder(userRoot.getId(), folderRepository.getRootFolder().getId());
+        }
 
         // 创建用户垃圾箱
-        FolderEntity userTrash = new FolderEntity();
-        userTrash.setName(".trash");
-        userTrash.setOwnerId(user.getId());
-        userTrash.setParent(userRoot.getId());
-        createFolder(userTrash);
+        if (folderRepository.getUserTrashFolder(userId) == null) {
+            FolderEntity userTrash = new FolderEntity();
+            userTrash.setName(".trash");
+            userTrash.setOwnerId(user.getId());
+            userTrash = createFolder(userTrash);
+            moveFolderToFolder(userTrash.getId(), userRoot.getId());
+        }
     }
 
     /**
@@ -84,23 +95,35 @@ public class FolderServiceImpl implements FolderService {
      * @param dstId 移入文件夹的ID
      */
     @Override
-    public void moveFolder(String srcId, String dstId) {
+    public void moveFolderToFolder(String srcId, String dstId) {
         FolderEntity src = folderRepository.findById(srcId);
         FolderEntity dst = folderRepository.findById(dstId);
         FolderEntity srcParent = folderRepository.findById(src.getParent());
 
         // Remove src from srcParent.children
-        List<String> srcParentChildren = srcParent.getChildren();
-        srcParentChildren.remove(srcId);
-        srcParent.setChildren(srcParentChildren);
+        if (srcParent != null) {
+            List<String> srcParentChildren = srcParent.getChildren();
+            srcParentChildren.remove(srcId);
+            srcParent.setChildren(srcParentChildren);
+            folderRepository.save(srcParent);
+        } else {
+            src.setParent(dstId);
+        }
 
         // Move src to dst.children
         List<String> dstChildren = dst.getChildren();
+        if (dstChildren == null) {
+            dstChildren = new ArrayList<>();
+        }
         dstChildren.add(srcId);
         dst.setChildren(dstChildren);
 
         // Update src.parent
         src.setParent(dstId);
+
+        // Save to MongoDB
+        folderRepository.save(src);
+        folderRepository.save(dst);
     }
 
     /**
@@ -109,13 +132,13 @@ public class FolderServiceImpl implements FolderService {
      * @param id 文件夹ID
      */
     @Override
-    public void moveToTrash(String id) {
+    public void moveFolderToTrash(String id) {
         // Get src
         FolderEntity src = folderRepository.findById(id);
         // Get .trash
         FolderEntity userTrash = folderRepository.getUserTrashFolder(src.getOwnerId());
         // Move to .trash
-        moveFolder(id, userTrash.getId());
+        moveFolderToFolder(id, userTrash.getId());
     }
 
     /**
@@ -137,5 +160,35 @@ public class FolderServiceImpl implements FolderService {
             }
         }
         folderRepository.delete(root);
+    }
+
+    /**
+     * 获取所有子文件夹
+     *
+     * @param id 父文件夹ID
+     * @return 子文件夹列表
+     */
+    @Override
+    public List<FolderEntity> getSubFolders(String id) {
+        FolderEntity folder = folderRepository.findById(id);
+        if (folder.getChildren() == null) {
+            return new ArrayList<>();
+        }
+        return folder.getChildren().stream().map(folderRepository::findById).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取文件夹内所有文件
+     *
+     * @param id 文件夹ID
+     * @return 文件列表
+     */
+    @Override
+    public List<FileEntity> getFiles(String id) {
+        FolderEntity folder = folderRepository.findById(id);
+        if (folder.getFiles() == null) {
+            return new ArrayList<>();
+        }
+        return folder.getFiles().stream().map(fileRepository::findById).collect(Collectors.toList());
     }
 }

@@ -1,6 +1,9 @@
 package org.sos.sixbox.folder.service;
 
+import org.sos.sixbox.entity.FileEntity;
 import org.sos.sixbox.entity.FolderEntity;
+
+import java.util.List;
 
 /**
  * Created by Lodour on 2017/9/3 23:50.
@@ -34,14 +37,14 @@ public interface FolderService {
      * @param srcId 被移动文件夹的ID
      * @param dstId 移入文件夹的ID
      */
-    void moveFolder(String srcId, String dstId);
+    void moveFolderToFolder(String srcId, String dstId);
 
     /**
      * 文件夹移入垃圾箱
      *
      * @param id 文件夹ID
      */
-    void moveToTrash(String id);
+    void moveFolderToTrash(String id);
 
     /**
      * 删除文件夹
@@ -49,4 +52,20 @@ public interface FolderService {
      * @param id 文件夹ID
      */
     void deleteFolder(String id);
+
+    /**
+     * 获取所有子文件夹
+     *
+     * @param id 父文件夹ID
+     * @return 子文件夹列表
+     */
+    List<FolderEntity> getSubFolders(String id);
+
+    /**
+     * 获取文件夹内所有文件
+     *
+     * @param id 文件夹ID
+     * @return 文件列表
+     */
+    List<FileEntity> getFiles(String id);
 }

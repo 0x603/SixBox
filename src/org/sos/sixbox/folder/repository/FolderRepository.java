@@ -14,6 +14,11 @@ public interface FolderRepository extends MongoRepository<FolderEntity, String> 
     @Query("{'name': '/'}")
     FolderEntity getRootFolder();
 
+    // TODO: 寻找更优雅的方法查询
+    @Query("{'name': ?0, 'ownerId': ?1}")
+    FolderEntity getUserRootFolder(String username, int userId);
+
+    // FIXME: 应排除用户创建的普通文件夹".trash"
     @Query("{'name': '.trash', 'ownerId': ?0}")
     FolderEntity getUserTrashFolder(int userId);
 }

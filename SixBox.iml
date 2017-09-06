@@ -28,6 +28,7 @@
             <file>jar://$MODULE_DIR$/lib/struts2-core.jar!/struts-default.xml</file>
             <file>file://$MODULE_DIR$/src/org/sos/sixbox/user/action/struts-user.xml</file>
             <file>file://$MODULE_DIR$/src/org/sos/sixbox/box/action/struts-box.xml</file>
+            <file>file://$MODULE_DIR$/src/org/sos/sixbox/folder/action/struts-folder.xml</file>
           </fileset>
           <propertiesKeys disabled="false" />
         </configuration>
