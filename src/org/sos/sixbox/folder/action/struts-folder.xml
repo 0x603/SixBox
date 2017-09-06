@@ -5,6 +5,6 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-    <package name="box" namespace="/box" extends="default">
+    <package name="folder" namespace="/folder" extends="default">
     </package>
 </struts>
