@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Lodour on 2017/9/3 16:42.
@@ -37,8 +38,26 @@ public class CreateFolder extends ActionVariableSupport {
         String name = httpServletRequest.getParameter("name");
         if (name == null || name.isEmpty() || name.equals("null")) {
             name = "New Folder";
+            List<FolderEntity> subFolders = folderService.getSubFolders(fid);
+            int cnt = 0;
+            String tmp;
+            while (true) {
+                boolean existed = false;
+                tmp = cnt == 0 ? name : name + " (" + String.valueOf(cnt) + ")";
+                for (FolderEntity subFolder : subFolders) {
+                    if (subFolder.getName().equals(tmp)) {
+                        existed = true;
+                        break;
+                    }
+                }
+                if (existed) {
+                    cnt += 1;
+                } else {
+                    break;
+                }
+            }
+            name = tmp;
         }
-        System.out.println(name);
 
         FolderEntity folderEntity = new FolderEntity();
         folderEntity.setName(name);

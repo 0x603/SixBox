@@ -109,10 +109,15 @@
                                         class="glyphicon glyphicon-list"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">重命名</a></li>
+                                    <%-- TODO: 用户输入新的文件名 --%>
+                                    <li>
+                                        <a href="<s:url action="RenameFolder" namespace="/box"/>?fid=<%=folder.getId()%>&name=test&type=folder">重命名</a>
+                                    </li>
                                     <li><a href="#">复制</a></li>
                                     <li><a href="#">移动</a></li>
-                                    <li><a href="#">删除</a></li>
+                                    <li>
+                                        <a href="<s:url action="MoveToTrash" namespace="/box"/>?fid=<%=folder.getId()%>&type=folder">删除</a>
+                                    </li>
                                 </ul>
                             </div>
                         </td>
@@ -144,10 +149,15 @@
                                     <li>
                                         <a href="<s:url action="DownloadFile" namespace="/box" />?fid=<%=file.getId()%>">下载</a>
                                     </li>
-                                    <li><a href="#">重命名</a></li>
+                                    <%-- TODO: 用户输入新文件名 --%>
+                                    <li>
+                                        <a href="<s:url action="RenameFolder" namespace="/box"/>?fid=<%=file.getId()%>&name=test.txt&type=file">重命名</a>
+                                    </li>
                                     <li><a href="#">复制</a></li>
                                     <li><a href="#">移动</a></li>
-                                    <li><a href="#">删除</a></li>
+                                    <li>
+                                        <a href="<s:url action="MoveToTrash" namespace="/box"/>?fid=<%=file.getId()%>&type=file">删除</a>
+                                    </li>
                                 </ul>
                             </div>
                         </td>

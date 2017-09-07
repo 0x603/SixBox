@@ -23,5 +23,14 @@
         <action name="CreateFolder" class="org.sos.sixbox.box.action.CreateFolder">
             <result name="success">home.jsp</result>
         </action>
+        <action name="RenameFolder" class="org.sos.sixbox.box.action.Rename">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="Delete" class="org.sos.sixbox.box.action.Delete">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="MoveToTrash" class="org.sos.sixbox.box.action.MoveToTrash">
+            <result name="success">home.jsp</result>
+        </action>
     </package>
 </struts>
