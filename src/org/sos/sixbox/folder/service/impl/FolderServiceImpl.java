@@ -160,6 +160,12 @@ public class FolderServiceImpl implements FolderService {
                 fileRepository.delete(child);
             }
         }
+        FolderEntity parent = folderRepository.findOne(root.getParent());
+        List<String> parentChildren = parent.getChildren();
+        parentChildren.remove(root);
+        parent.setChildren(parentChildren);
+        folderRepository.save(parent);
+
         folderRepository.delete(root);
     }
 

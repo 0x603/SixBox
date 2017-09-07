@@ -33,7 +33,7 @@
             <ul class="nav-item">
                 <%--<li>Username:<s:property value="#session.username" /></li>--%>
                 <li><a href="${pageContext.request.contextPath}/box/home.jsp" style="color: #0070E0;">文件</a></li>
-                <li><a href="">分享</a></li>
+                <li><a href="${pageContext.request.contextPath}/box/share.jsp">分享</a></li>
                 <li><a href="${pageContext.request.contextPath}/box/recyclebin.jsp">回收站</a></li>
             </ul>
         </div>
@@ -76,30 +76,28 @@
     <div class="main-page-bottom">
         <!-- 内容显示区域 -->
         <div class="main-middle">
-            <div class="table-fixed">
+            <div class="table-content">
                 <table>
                     <tr>
                         <th class="checkbox-th"><input type="checkbox" style="visibility: hidden"></th>
                         <th class="name-th">文件名</th>
+                        <th class="name-th">文件大小</th>
                         <th class="time-th">上传时间</th>
                         <th class="button-th"></th>
                     </tr>
-                </table>
-            </div>
-            <div class="table-content">
-                <table>
                     <%
                         List<FolderEntity> folders = (List<FolderEntity>) request.getAttribute("folders");
                         if (folders != null)
                             for (FolderEntity folder : folders) {
+                                if (folder == null || folder.getName().startsWith(".")) continue;
                     %>
                     <tr>
                         <td style="display: none"><input type="hidden" value="<%=folder.getId()%>" name="fileId"></td>
-                        <td class="checkbox-th"><input type="checkbox"></td>
+                        <td class="checkbox-th"><input type="checkbox" value="<%=folder.getId()%>" name="folder"></td>
                         <td class="name-th">
-                            <a href="home.jsp?pwd=<%=folder.getId()%>"><%=folder.getName()%>
-                            </a>
+                            <a href="home.jsp?pwd=<%=folder.getId()%>"><%=folder.getName()%>/</a>
                         </td>
+                        <td class="name-th">-</td>
                         <td class="time-th"><%=Utils.getFormatDate(folder.getCreateTime())%>
                         </td>
                         <td class="button-th">
@@ -109,9 +107,8 @@
                                         class="glyphicon glyphicon-list"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <%-- TODO: 用户输入新的文件名 --%>
                                     <li>
-                                        <a href="<s:url action="RenameFolder" namespace="/box"/>?fid=<%=folder.getId()%>&name=test&type=folder">重命名</a>
+                                        <a href="javascript:doRename('folder', '<%=folder.getId()%>');">重命名</a>
                                     </li>
                                     <li><a href="#">复制</a></li>
                                     <li><a href="#">移动</a></li>
@@ -129,13 +126,15 @@
                         List<FileEntity> files = (List<FileEntity>) request.getAttribute("files");
                         if (files != null)
                             for (FileEntity file : files) {
+                                if (file == null) continue;
                     %>
                     <tr>
                         <td style="display: none"><input type="hidden" value="<%=file.getId()%>" name="fileId"></td>
-                        <td class="checkbox-th"><input type="checkbox"></td>
+                        <td class="checkbox-th"><input type="checkbox" value="<%=file.getId()%>" name="file"></td>
                         <td class="name-th"><a
                                 href="<s:url action="DownloadFile" namespace="/box" />?fid=<%=file.getId()%>"><%=file.getFilename()%>
                         </a>
+                        <td class="name-th"><span id="<%=file.getId()%>"></span></td>
                         </td>
                         <td class="time-th"><%=Utils.getFormatDate(file.getUploadTime())%>
                         </td>
@@ -149,9 +148,8 @@
                                     <li>
                                         <a href="<s:url action="DownloadFile" namespace="/box" />?fid=<%=file.getId()%>">下载</a>
                                     </li>
-                                    <%-- TODO: 用户输入新文件名 --%>
                                     <li>
-                                        <a href="<s:url action="RenameFolder" namespace="/box"/>?fid=<%=file.getId()%>&name=test.txt&type=file">重命名</a>
+                                        <a href="javascript:doRename('file', '<%=file.getId()%>');">重命名</a>
                                     </li>
                                     <li><a href="#">复制</a></li>
                                     <li><a href="#">移动</a></li>
@@ -169,6 +167,79 @@
             </div>
         </div>
         <!-- 右侧操作栏 -->
+        <script>
+            function test() {
+                $("td[class='name-th'] span").each(function () {
+                    var a = $(this);
+                    $.ajax({
+                        url: '<s:url action="GetFileSize" namespace="/box"/>',
+                        data: {
+                            'fid': $(this).attr("id")
+                        },
+                        success: function (data) {
+                            a.text(data);
+                        }
+                    });
+                });
+            }
+
+            function doRename(type, id) {
+                var name = prompt("请输入新文件名", "新文件名...");
+                $.ajax({
+                    url: '<s:url action="RenameFolder" namespace="/box"/>',
+                    type: 'POST',
+                    data: {
+                        'fid': id,
+                        'type': type,
+                        'name': name
+                    },
+                    success: function () {
+                        name = type === 'folder' ? name + '/' : name;
+                        $("td[class='name-th'] a[href$='" + id + "']").text(name);
+                    }
+                });
+            }
+
+            function doDelete() {
+                $("tr td input[type='checkbox']:checked").each(function () {
+                    $.ajax({
+                        url: '<s:url action="MoveToTrash" namespace="/box"/>',
+                        type: 'POST',
+                        data: {
+                            'fid': $(this).val(),
+                            'type': $(this).attr("name")
+                        },
+                        success: function () {
+                            $("tr:has(input:checked)").css("display", "none");
+                        }
+                    });
+                });
+            }
+
+            function doShare() {
+                var sharedFolders = [];
+                $("tr td input[type='checkbox'][name='folder']:checked").each(function () {
+                    sharedFolders.push($(this).val());
+                });
+                var sharedFiles = [];
+                $("tr td input[type='checkbox'][name='file']:checked").each(function () {
+                    sharedFiles.push($(this).val());
+                });
+                $.ajax({
+                    url: '<s:url action="Share" namespace="/box"/>',
+                    type: 'POST',
+                    data: {
+                        'sharedFolders': sharedFolders.join(","),
+                        'sharedFiles': sharedFiles.join(","),
+                        'caption': prompt("请输入分享名", "我的分享")
+                    },
+                    success: function (shareId) {
+                        var url = "<s:url action="ShareDetail" namespace="/box"/>?shareId=" + shareId;
+                        prompt("分享成功！链接如下: ", url);
+                    }
+                });
+            }
+        </script>
         <div class="main-right">
             <div class="action-menu">
                 <button type="file" class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal">上传文件
@@ -178,8 +249,10 @@
                     <li><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span><a href="">下载</a></li>
                     <li><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><a href="">移动</a></li>
                     <li><span class="glyphicon glyphicon-copy" aria-hidden="true"></span><a href="">复制</a></li>
-                    <li><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><a href="">删除</a></li>
-                    <li><span class="glyphicon glyphicon-share" aria-hidden="true"></span><a href="">分享</a></li>
+                    <li><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><a
+                            href="javascript:doDelete();">删除</a></li>
+                    <li><span class="glyphicon glyphicon-share" aria-hidden="true"></span><a
+                            href="javascript:doShare();">分享</a></li>
                     <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><a href="">重命名</a></li>
                 </ul>
                 <ul class="none-item-action">
@@ -224,7 +297,7 @@
 <script src="../static/js/boxScript.js"></script>
 <script>
     $(function () {
-
+        test();
     })
 </script>
 </body>

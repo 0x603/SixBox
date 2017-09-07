@@ -16,6 +16,7 @@ public class ShareEntity {
     private int sharedBy;
     private boolean isPublic;
     private String code;
+    private String caption;
     private Date createTime;
     private String[] folders;
     private String[] files;
@@ -74,5 +75,13 @@ public class ShareEntity {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 }

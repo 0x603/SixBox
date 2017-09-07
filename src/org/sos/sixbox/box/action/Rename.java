@@ -30,6 +30,9 @@ public class Rename extends ActionVariableSupport {
         String fid = httpServletRequest.getParameter("fid");
         String name = httpServletRequest.getParameter("name");
         String type = httpServletRequest.getParameter("type");
+        System.out.println(fid);
+        System.out.println(name);
+        System.out.println(type);
 
         if ("file".equals(type)) {
             FileEntity fileEntity = fileRepository.findById(fid);

@@ -21,6 +21,9 @@ public class Share extends ActionVariableSupport {
 
     private String[] sharedFolders;
     private String[] sharedFiles;
+    private String caption;
+
+    // FIXME: 分享文件存在问题
 
     @Autowired
     public Share(ShareRepository shareRepository) {
@@ -35,6 +38,7 @@ public class Share extends ActionVariableSupport {
         shareEntity.setFolders(sharedFolders);
         shareEntity.setFiles(sharedFiles);
         shareEntity.setCreateTime(Utils.getCurrentTimestamp());
+        shareEntity.setCaption(caption);
         shareEntity = shareRepository.save(shareEntity);
 
         httpServletRequest.setAttribute("shareId", shareEntity.getId());
@@ -48,5 +52,9 @@ public class Share extends ActionVariableSupport {
 
     public void setSharedFiles(String[] sharedFiles) {
         this.sharedFiles = sharedFiles;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 }

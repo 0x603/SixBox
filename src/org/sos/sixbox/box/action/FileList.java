@@ -22,6 +22,7 @@ public class FileList extends ActionVariableSupport {
     private final UserService userService;
     private final FolderRepository folderRepository;
     private final FolderService folderService;
+    private String isTrash;
 
 
     @Autowired
@@ -39,7 +40,10 @@ public class FileList extends ActionVariableSupport {
         // 确定位置
         String folderId = httpServletRequest.getParameter("pwd");
         System.out.println("1: " + folderId);
-        if (folderId == null || folderId.isEmpty()) {
+        // 判断垃圾箱
+        if ("true".equals(isTrash)) {
+            folderId = folderRepository.getUserTrashFolder(userId).getId();
+        } else if (folderId == null || folderId.isEmpty()) {
             folderId = folderRepository.getUserRootFolder(user.getUsername(), user.getId()).getId();
             System.out.println("2: " + folderId);
         }
@@ -51,13 +55,27 @@ public class FileList extends ActionVariableSupport {
 
         // 获取子文件夹
         List<FolderEntity> folderEntityList = folderService.getSubFolders(pwd.getId());
+        System.out.println("4: " + folderEntityList);
+        if (pwd.getParent() != null && !pwd.getParent().equals(folderRepository.getRootFolder().getId())) {
+            FolderEntity parent = folderRepository.findOne(pwd.getParent());
+            parent.setName("上一级");
+            folderEntityList.add(0, parent);
+        }
         httpServletRequest.setAttribute("folders", folderEntityList);
 
         // 获取子文件
         List<FileEntity> fileEntityList = folderService.getFiles(pwd.getId());
-        System.out.println(fileEntityList);
+        System.out.println("5: " + fileEntityList);
         httpServletRequest.setAttribute("files", fileEntityList);
 
         return SUCCESS;
+    }
+
+    public String getIsTrash() {
+        return isTrash;
+    }
+
+    public void setIsTrash(String isTrash) {
+        this.isTrash = isTrash;
     }
 }

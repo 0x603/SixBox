@@ -40,8 +40,8 @@ public class CreateFolder extends ActionVariableSupport {
             name = "New Folder";
             List<FolderEntity> subFolders = folderService.getSubFolders(fid);
             int cnt = 0;
-            String tmp;
-            while (true) {
+            String tmp = name;
+            while (subFolders != null) {
                 boolean existed = false;
                 tmp = cnt == 0 ? name : name + " (" + String.valueOf(cnt) + ")";
                 for (FolderEntity subFolder : subFolders) {
