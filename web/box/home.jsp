@@ -234,7 +234,7 @@
                         'caption': prompt("请输入分享名", "我的分享")
                     },
                     success: function (shareId) {
-                        var url = "<s:url action="ShareDetail" namespace="/box"/>?shareId=" + shareId;
+                        var url = "http://localhost:8080/box/ShareDetail.action?shareId=" + shareId.replace(/\s/g, "");
                         prompt("分享成功！链接如下: ", url);
                     }
                 });
