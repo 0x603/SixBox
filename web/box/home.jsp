@@ -179,6 +179,7 @@
                     <li><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><a href="">移动</a></li>
                     <li><span class="glyphicon glyphicon-copy" aria-hidden="true"></span><a href="">复制</a></li>
                     <li><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><a href="">删除</a></li>
+                    <li><span class="glyphicon glyphicon-share" aria-hidden="true"></span><a href="">分享</a></li>
                     <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><a href="">重命名</a></li>
                 </ul>
                 <ul class="none-item-action">

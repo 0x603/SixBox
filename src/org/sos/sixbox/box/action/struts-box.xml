@@ -12,6 +12,9 @@
         <action name="FileList" class="org.sos.sixbox.box.action.FileList">
             <result name="success">home.jsp</result>
         </action>
+        <action name="TrashList" class="org.sos.sixbox.box.action.TrashList">
+            <result name="success">home.jsp</result>
+        </action>
         <action name="DownloadFile" class="org.sos.sixbox.box.action.DownloadFile">
             <result name="success" type="stream">
                 <param name="contentType">application/octet-stream</param>

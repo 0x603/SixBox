@@ -1,4 +1,7 @@
-<%--
+<%@ page import="org.sos.sixbox.entity.FileEntity" %>
+<%@ page import="org.sos.sixbox.entity.FolderEntity" %>
+<%@ page import="org.sos.sixbox.utils.Utils" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: zc
   Date: 2017/7/8
@@ -12,6 +15,7 @@
         response.sendRedirect("/index.jsp");
     }
 %>
+<s:action name="FileList" namespace="/box"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,34 +81,43 @@
                     <tr>
                         <th class="checkbox-th"><input type="checkbox" style="visibility: hidden"></th>
                         <th class="name-th">名称</th>
-                        <th class="time-th">删除时间</th>
+                        <th class="time-th">上传时间</th>
                         <th class="button-th"></th>
                     </tr>
                 </table>
             </div>
             <div class="table-content">
                 <table>
+                    <%
+                        List<FolderEntity> folders = (List<FolderEntity>) request.getAttribute("folders");
+                        if (folders != null)
+                            for (FolderEntity folder : folders) {
+                    %>
                     <tr>
-                        <td class="checkbox-th"><input type="hidden" value="1"></td>
+                        <td class="checkbox-th"><input type="hidden" value="<%=folder.getId()%>"></td>
                         <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 1</td>
-                        <td class="time-th">2017-07-08</td>
+                        <td class="name-th"><%=folder.getName()%>
+                        </td>
+                        <td class="time-th"><%=Utils.getFormatDate(folder.getCreateTime())%>
+                        </td>
                         <td class="button-th"></td>
                     </tr>
+                    <% } %>
+                    <%
+                        List<FileEntity> files = (List<FileEntity>) request.getAttribute("files");
+                        if (files != null)
+                            for (FileEntity file : files) {
+                    %>
                     <tr>
-                        <td class="checkbox-th"><input type="hidden" value="1"></td>
+                        <td class="checkbox-th"><input type="hidden" value="<%=file.getId()%>"></td>
                         <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 2</td>
-                        <td class="time-th">2017-07-08</td>
+                        <td class="name-th"><%=file.getFilename()%>
+                        </td>
+                        <td class="time-th"><%=Utils.getFormatDate(file.getUploadTime())%>
+                        </td>
                         <td class="button-th"></td>
                     </tr>
-                    <tr>
-                        <td class="checkbox-th"><input type="hidden" value="3"></td>
-                        <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 3</td>
-                        <td class="time-th">2017-07-08</td>
-                        <td class="button-th"></td>
-                    </tr>
+                    <% } %>
                 </table>
             </div>
         </div>
