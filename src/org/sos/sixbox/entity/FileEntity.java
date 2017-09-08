@@ -27,7 +27,6 @@ public class FileEntity {
         this.id = id;
     }
 
-
     public String getFilename() {
         return filename;
     }

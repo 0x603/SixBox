@@ -1,4 +1,7 @@
-<%--
+<%@ page import="org.sos.sixbox.entity.FileEntity" %>
+<%@ page import="org.sos.sixbox.entity.FolderEntity" %>
+<%@ page import="org.sos.sixbox.utils.Utils" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: zc
   Date: 2017/7/8
@@ -7,6 +10,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+    if (session.getAttribute("username") == null) {
+        response.sendRedirect("/index.jsp");
+    }
+%>
+<s:action name="FileList" namespace="/box">
+    <s:param name="isTrash" value="true"/>
+</s:action>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +33,8 @@
         <img src="../static/images/SixBox_logo_boxhome.jpg" alt="logo">
         <div class="nav-content">
             <ul class="nav-item">
-                <li><a href="./boxhome.jsp">文件</a></li>
-                <li><a href="#">分享</a></li>
+                <li><a href="./home.jsp">文件</a></li>
+                <li><a href="${pageContext.request.contextPath}/box/share.jsp">分享</a></li>
                 <li><a href="./recyclebin.jsp" style="color: #0070E0;">回收站</a></li>
             </ul>
         </div>
@@ -72,48 +83,109 @@
                     <tr>
                         <th class="checkbox-th"><input type="checkbox" style="visibility: hidden"></th>
                         <th class="name-th">名称</th>
-                        <th class="time-th">删除时间</th>
+                        <th class="time-th">上传时间</th>
                         <th class="button-th"></th>
                     </tr>
                 </table>
             </div>
             <div class="table-content">
                 <table>
+                    <%
+                        List<FolderEntity> folders = (List<FolderEntity>) request.getAttribute("folders");
+                        if (folders != null)
+                            for (FolderEntity folder : folders) {
+                                if (folder == null) continue;
+                    %>
                     <tr>
-                        <td class="checkbox-th"><input type="hidden" value="1"></td>
-                        <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 1</td>
-                        <td class="time-th">2017-07-08</td>
+                        <td class="checkbox-th"><input type="hidden" value="<%=folder.getId()%>"></td>
+                        <td class="checkbox-th"><input type="checkbox" name="folder" value="<%=folder.getId()%>"></td>
+                        <td class="name-th"><%=folder.getName()%>/
+                        </td>
+                        <td class="time-th"><%=Utils.getFormatDate(folder.getCreateTime())%>
+                        </td>
                         <td class="button-th"></td>
                     </tr>
+                    <% } %>
+                    <%
+                        List<FileEntity> files = (List<FileEntity>) request.getAttribute("files");
+                        if (files != null)
+                            for (FileEntity file : files) {
+                    %>
                     <tr>
-                        <td class="checkbox-th"><input type="hidden" value="1"></td>
-                        <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 2</td>
-                        <td class="time-th">2017-07-08</td>
+                        <td class="checkbox-th"><input type="hidden" value="<%=file.getId()%>"></td>
+                        <td class="checkbox-th"><input type="checkbox" name="file" value="<%=file.getId()%>"></td>
+                        <td class="name-th"><%=file.getFilename()%>
+                        </td>
+                        <td class="time-th"><%=Utils.getFormatDate(file.getUploadTime())%>
+                        </td>
                         <td class="button-th"></td>
                     </tr>
-                    <tr>
-                        <td class="checkbox-th"><input type="hidden" value="3"></td>
-                        <td class="checkbox-th"><input type="checkbox"></td>
-                        <td class="name-th">File Name 3</td>
-                        <td class="time-th">2017-07-08</td>
-                        <td class="button-th"></td>
-                    </tr>
+                    <% } %>
                 </table>
             </div>
         </div>
         <!-- 右侧操作栏 -->
         <div class="main-right">
             <div class="action-menu">
-                <button type="button" class="btn btn-info btn-block">清空回收站</button>
+                <button type="button" class="btn btn-info btn-block" onclick="doClear();">清空回收站</button>
                 <!-- 选中一个或多个文件的功能列表 -->
                 <ul class="single-item-action" style="display: block;">
-                    <li><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span><a href="">恢复</a></li>
-                    <li><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><a href="">删除</a></li>
+                    <li><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span><a
+                            href="javascript:doRecover();">恢复</a></li>
+                    <li><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><a
+                            href="javascript:doDelete();">删除</a></li>
                 </ul>
             </div>
         </div>
+        <script>
+            function doRecover() {
+                $("tr td input[type='checkbox']:checked").each(function () {
+                    $.ajax({
+                        url: '<s:url action="Recover" namespace="/box"/>',
+                        type: 'POST',
+                        data: {
+                            'fid': $(this).val(),
+                            'type': $(this).attr("name")
+                        },
+                        success: function () {
+                            $("tr:has(input:checked)").css("display", "none");
+                        }
+                    });
+                });
+            }
+
+            function doDelete() {
+                $("tr td input[type='checkbox']:checked").each(function () {
+                    $.ajax({
+                        url: '<s:url action="Delete" namespace="/box"/>',
+                        type: 'POST',
+                        data: {
+                            'fid': $(this).val(),
+                            'type': $(this).attr("name")
+                        },
+                        success: function () {
+                            $("tr:has(input:checked)").css("display", "none");
+                        }
+                    });
+                });
+            }
+
+            function doClear() {
+                $("tr td input[type='checkbox']").each(function () {
+                    $.ajax({
+                        url: '<s:url action="Delete" namespace="/box"/>',
+                        type: 'POST',
+                        data: {
+                            'fid': $(this).val(),
+                            'type': $(this).attr("name")
+                        },
+                        success: function () {
+                            $("tr:has(input[type='checkbox])").css("display", "none");
+                        }
+                    });
+                });
+            }
+        </script>
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

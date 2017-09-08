@@ -16,6 +16,7 @@
           <element id="library" level="project" name="org.springframework:spring-web:4.3.10.RELEASE" />
           <element id="library" level="project" name="junit:junit:4.12" />
           <element id="library" level="project" name="org.springframework.data:spring-data-mongodb:1.10.6.RELEASE" />
+          <element id="library" level="project" name="org.apache.commons:commons-compress:1.14" />
         </element>
       </element>
     </root>

@@ -6,5 +6,57 @@
 
 <struts>
     <package name="box" namespace="/box" extends="default">
+        <action name="UploadFile" class="org.sos.sixbox.box.action.UploadFile">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="FileList" class="org.sos.sixbox.box.action.FileList">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="TrashList" class="org.sos.sixbox.box.action.TrashList">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="DownloadFile" class="org.sos.sixbox.box.action.DownloadFile">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="${filename}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        <action name="CreateFolder" class="org.sos.sixbox.box.action.CreateFolder">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="RenameFolder" class="org.sos.sixbox.box.action.Rename">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="Delete" class="org.sos.sixbox.box.action.Delete">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="MoveToTrash" class="org.sos.sixbox.box.action.MoveToTrash">
+            <result name="success">home.jsp</result>
+        </action>
+        <action name="Recover" class="org.sos.sixbox.box.action.Recover">
+            <result name="success">recyclebin.jsp</result>
+        </action>
+        <action name="Share" class="org.sos.sixbox.box.action.Share">
+            <result name="success">shareResult.jsp</result>
+        </action>
+        <action name="ShareList" class="org.sos.sixbox.box.action.ShareList">
+            <result name="success">share.jsp</result>
+        </action>
+        <action name="ShareDetail" class="org.sos.sixbox.box.action.ShareDetail">
+            <result name="success">shareView.jsp</result>
+        </action>
+        <action name="GetFileSize" class="org.sos.sixbox.box.action.GetFileSize">
+            <result name="success">fileSizeResult.jsp</result>
+        </action>
+        <action name="DownloadMultiFile" class="org.sos.sixbox.box.action.DownloadMultiFile">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="${filename}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
     </package>
 </struts>

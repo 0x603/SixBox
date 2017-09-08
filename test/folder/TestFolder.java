@@ -31,7 +31,7 @@ public class TestFolder {
     public void testInit() throws IOException {
         // Init
         folderService.initSystemFolder();
-        folderService.initUserFolder(1);
+//        folderService.initUserFolder(1);
 
         // ls /
         tree(folderRepository.getRootFolder().getId(), null);

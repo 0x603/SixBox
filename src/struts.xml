@@ -19,6 +19,9 @@
     <!-- 默认配置 -->
     <package name="default" namespace="/" extends="struts-default"/>
 
+    <!-- 上传文件大小限制 -->
+    <constant name="struts.multipart.maxSize" value="55000000"/>
+
     <!-- 引入其他子配置 -->
     <include file="org/sos/sixbox/user/action/struts-user.xml"/>
     <include file="org/sos/sixbox/box/action/struts-box.xml"/>

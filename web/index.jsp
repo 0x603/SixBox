@@ -16,12 +16,18 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css">
 </head>
 <style>
-    *{margin:0;padding: 0;}
+    * {
+        margin: 0;
+        padding: 0;
+    }
 </style>
 <body>
 <header class="index-header">
     <div class="head-container">
-        <h1><img src="/static/images/SixBox_logo.jpg" alt="logo" height="65">SixBox</h1>
+        <h1>
+            <img src="${pageContext.request.contextPath}/static/images/SixBox_logo.jpg" alt="logo" height="50">
+            SixBox
+        </h1>
     </div>
 </header>
 <div class="content">
@@ -30,7 +36,6 @@
         <div class="login-register">
             <div class="info-page">
                 <div class="info-header">登录</div>
-                <div class="login-register-switch"><span>或</span><a href="/user/register.jsp">创建账户</a></div>
             </div>
             <!-- Login Form -->
             <div id="login-page" class="container-fluid">
@@ -45,6 +50,10 @@
                             <input type="password" class="form-control" placeholder="Password" name="password">
                         </div>
                         <button type="submit" class="btn btn-info">登录</button>
+                        <div class="login-register-switch">
+                            <span>或</span>
+                            <a href="${pageContext.request.contextPath}/user/register.jsp">创建账户</a>
+                        </div>
                     </form>
                 </div>
             </div><!-- End of Login Form -->
