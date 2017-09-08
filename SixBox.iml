@@ -60,5 +60,6 @@
     <orderEntry type="library" name="org.springframework.data:spring-data-mongodb:1.10.6.RELEASE" level="project" />
     <orderEntry type="library" name="com.hynnet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="org.apache.commons:commons-compress:1.14" level="project" />
   </component>
 </module>

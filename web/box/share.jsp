@@ -31,8 +31,8 @@
         <div class="nav-content">
             <ul class="nav-item">
                 <%--<li>Username:<s:property value="#session.username" /></li>--%>
-                <li><a href="${pageContext.request.contextPath}/box/home.jsp" style="color: #0070E0;">文件</a></li>
-                <li><a href="${pageContext.request.contextPath}/box/share.jsp">分享</a></li>
+                <li><a href="${pageContext.request.contextPath}/box/home.jsp">文件</a></li>
+                <li><a href="${pageContext.request.contextPath}/box/share.jsp" style="color: #0070E0;">分享</a></li>
                 <li><a href="${pageContext.request.contextPath}/box/recyclebin.jsp">回收站</a></li>
             </ul>
         </div>

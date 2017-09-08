@@ -239,6 +239,14 @@
                     }
                 });
             }
+
+            function doDownload() {
+                var downFiles = [];
+                $("tr td input[type='checkbox'][name='file']:checked").each(function () {
+                    downFiles.push($(this).val());
+                });
+                location.href = '<s:url action="DownloadMultiFile" namespace="/box"/>?fid=' + downFiles.join(",");
+            }
         </script>
         <div class="main-right">
             <div class="action-menu">
@@ -246,7 +254,8 @@
                 </button>
                 <!-- 选中一个或多个文件的功能列表 -->
                 <ul class="single-item-action">
-                    <li><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span><a href="">下载</a></li>
+                    <li><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span><a
+                            href="javascript:doDownload();">下载</a></li>
                     <li><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><a href="">移动</a></li>
                     <li><span class="glyphicon glyphicon-copy" aria-hidden="true"></span><a href="">复制</a></li>
                     <li><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><a
@@ -278,7 +287,7 @@
                       enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="fileUpload">File input</label>
-                        <input type="file" id="fileUpload" name="file">
+                        <input type="file" id="fileUpload" name="file" multiple>
                         <input type="hidden" name="pwd" value="${pageContext.request.getParameter("pwd")}"/>
                     </div>
                     <button type="submit" class="btn btn-default">上传</button>

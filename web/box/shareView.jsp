@@ -36,8 +36,8 @@
         <div class="nav-content">
             <ul class="nav-item">
                 <%--<li>Username:<s:property value="#session.username" /></li>--%>
-                <li><a href="${pageContext.request.contextPath}/box/home.jsp" style="color: #0070E0;">文件</a></li>
-                <li><a href="${pageContext.request.contextPath}/box/share.jsp">分享</a></li>
+                <li><a href="${pageContext.request.contextPath}/box/home.jsp">文件</a></li>
+                <li><a href="${pageContext.request.contextPath}/box/share.jsp" style="color: #0070E0;">分享</a></li>
                 <li><a href="${pageContext.request.contextPath}/box/recyclebin.jsp">回收站</a></li>
             </ul>
         </div>
@@ -84,7 +84,7 @@
             <div class="table-fixed">
                 <table>
                     <tr>
-                        <th class="checkbox-th"><input type="checkbox" style="visibility: hidden"></th>
+                        <th class="checkbox-th"><input type="checkbox" onclick='swapCheck();'></th>
                         <th class="name-th">文件名</th>
                         <th class="time-th">上传时间</th>
                         <th class="button-th"></th>
@@ -132,7 +132,43 @@
                             }
                     %>
                 </table>
+                <script>
+                    function doDownload() {
+                        var downFiles = [];
+                        $("tr td input[type='checkbox'][name='file']:checked").each(function () {
+                            downFiles.push($(this).val());
+                        });
+                        location.href = '<s:url action="DownloadMultiFile" namespace="/box"/>?fid=' + downFiles.join(",");
+                    }
+
+                    var isCheckAll = false;
+
+                    function swapCheck() {
+                        if (isCheckAll) {
+                            $("tr td input[type='checkbox'][name='file']").each(function () {
+                                this.checked = false;
+                            });
+                            isCheckAll = false;
+                        } else {
+                            $("tr td input[type='checkbox'][name='file']").each(function () {
+                                this.checked = true;
+                            });
+                            isCheckAll = true;
+                            $("li").each(function () {
+                                this.setAttribute("aria-hidden", "false");
+                            })
+                        }
+                    }
+                </script>
+                <div class="main-right">
+                    <div class="action-menu">
+                        <!-- 选中一个或多个文件的功能列表 -->
+                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span><a
+                            href="javascript:doDownload();">下载</a>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </div>

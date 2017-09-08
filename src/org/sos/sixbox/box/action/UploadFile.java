@@ -26,9 +26,9 @@ import java.util.List;
 public class UploadFile extends ActionVariableSupport {
     private final BoxService boxService;
     private final FolderRepository folderRepository;
-    private File file;
-    private String fileContentType;
-    private String fileFileName;
+    private File[] file;
+    private String[] fileContentType;
+    private String[] fileFileName;
 
 
     @Autowired
@@ -39,37 +39,38 @@ public class UploadFile extends ActionVariableSupport {
 
     public String execute() throws IOException {
         UserEntity user = (UserEntity) httpSession.get("userEntity");
-
-        FileEntity fileEntity = new FileEntity();
-        fileEntity.setOwnerId(user.getId());
-        fileEntity.setFilename(fileFileName);
-        fileEntity.setContentType(fileContentType);
-        fileEntity = boxService.upload(fileEntity, file);
-
         String pwd = httpServletRequest.getParameter("pwd");
         if (pwd == null || pwd.isEmpty()) {
             pwd = folderRepository.getUserRootFolder(user.getUsername(), user.getId()).getId();
         }
-        System.out.println("1 " + pwd);
-        FolderEntity folder = folderRepository.findById(pwd);
-        System.out.println("2 " + folder);
-        List<String> files = (folder.getFiles() == null) ? new ArrayList<>() : folder.getFiles();
-        files.add(fileEntity.getId());
-        folder.setFiles(files);
-        folderRepository.save(folder);
 
+        for (int i = 0; i < file.length; i++) {
+            FileEntity fileEntity = new FileEntity();
+            fileEntity.setOwnerId(user.getId());
+            fileEntity.setFilename(fileFileName[i]);
+            fileEntity.setContentType(fileContentType[i]);
+            fileEntity = boxService.upload(fileEntity, file[i]);
+
+            System.out.println("1 " + pwd);
+            FolderEntity folder = folderRepository.findById(pwd);
+            System.out.println("2 " + folder);
+            List<String> files = (folder.getFiles() == null) ? new ArrayList<>() : folder.getFiles();
+            files.add(fileEntity.getId());
+            folder.setFiles(files);
+            folderRepository.save(folder);
+        }
         return SUCCESS;
     }
 
-    public void setFile(File file) {
+    public void setFile(File[] file) {
         this.file = file;
     }
 
-    public void setFileContentType(String fileContentType) {
+    public void setFileContentType(String[] fileContentType) {
         this.fileContentType = fileContentType;
     }
 
-    public void setFileFileName(String fileFileName) {
+    public void setFileFileName(String[] fileFileName) {
         this.fileFileName = fileFileName;
     }
 }

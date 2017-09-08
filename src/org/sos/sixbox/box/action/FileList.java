@@ -56,7 +56,9 @@ public class FileList extends ActionVariableSupport {
         // 获取子文件夹
         List<FolderEntity> folderEntityList = folderService.getSubFolders(pwd.getId());
         System.out.println("4: " + folderEntityList);
-        if (pwd.getParent() != null && !pwd.getParent().equals(folderRepository.getRootFolder().getId())) {
+        if (pwd.getParent() != null
+                && !pwd.getParent().equals(folderRepository.getRootFolder().getId())
+                && !pwd.getName().equals(".trash")) {
             FolderEntity parent = folderRepository.findOne(pwd.getParent());
             parent.setName("上一级");
             folderEntityList.add(0, parent);
